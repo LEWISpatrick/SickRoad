@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SickRoad - Account</title>
+    <!-- HTMX for dynamic content loading -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">SickRoad</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="/road" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="/sell" class="hover:text-gray-300">Sell</a></li>
+                    <li><a href="/account" class="hover:text-gray-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto mt-8 p-4">
+        <h2 class="text-3xl font-bold mb-4">Your Account</h2>
+        
+        <!-- User Info -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h3 class="text-xl font-semibold mb-2">User Information</h3>
+            <div id="user-info" hx-get="/user-info" hx-trigger="load">
+                <p>Loading user information...</p>
+            </div>
+
+            <button 
+    hx-get="/logout" 
+    hx-target="body" 
+    hx-swap="outerHTML"
+    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+>
+    Logout
+</button>
+
+        </section>
+
+        <!-- User Products -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h3 class="text-xl font-semibold mb-2">Your Products</h3>
+            <div id="user-products" hx-get="/user-products" hx-trigger="load">
+                <p>Loading your products...</p>
+            </div>
+        </section>
+
+        <!-- User Transactions -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-semibold mb-2">Your Transactions</h3>
+            <div id="user-transactions" hx-get="/user-transactions" hx-trigger="load">
+                <p>Loading your transactions...</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 SickRoad. For educational purposes only.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

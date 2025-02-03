@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SickRoad - Powered by Bitcoin</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <header class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold">SickRoad</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h2 class="text-4xl font-bold mb-4">SickRoad</h2>
+            <p class="text-xl mb-4">Built on privacy-first technology, using Bitcoin for secure, private, and anonymous transactions between buyers and sellers. No identity verification required.</p>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-4">Key Features</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-xl font-semibold mb-2">Privacy-Focused</h4>
+                    <p>Browse, buy, and sell items without revealing your identity.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-xl font-semibold mb-2">Secure Payments</h4>
+                    <p>Transactions using Bitcoin for complete anonymity.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-xl font-semibold mb-2">Escrow Protection</h4>
+                    <p>Payments held in escrow until item shipment is confirmed.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h4 class="text-xl font-semibold mb-2">No KYC Required</h4>
+                    <p>No identity verification needed.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="mb-12">
+            <h3 class="text-2xl font-bold mb-4">Who's It For</h3>
+            <div class="space-y-4">
+                <div>
+                    <h4 class="text-xl font-semibold">Sellers</h4>
+                    <p>Sell digital goods, physical products, or unique items with privacy and security.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold">Buyers</h4>
+                    <p>Enjoy anonymous browsing and secure, private purchases without sharing personal details.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold">Anti-Government Individuals</h4>
+                    <p>A platform that prioritizes freedom and minimal oversight.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="text-2xl font-bold mb-4">Get Started</h3>
+            <div id="auth-buttons">
+                <!-- These will be dynamically shown or hidden -->
+                <button
+                    id="signup-btn"
+                    hx-get="/signup"
+                    hx-target="#signup-form"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Sign Up Now
+                </button>
+        
+                <button
+                    id="login-btn"
+                    hx-get="/login"
+                    hx-target="#login-form"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Login Now
+                </button>
+        
+                <button
+                    id="logout-btn"
+                    onclick="logout()"
+                    class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hidden"
+                >
+                    Logout
+                </button>
+            </div>
+            <div id="signup-form" class="mt-4"></div>
+            <div id="login-form" class="mt-4"></div>
+        </section>
+        
+        <script>
+            async function checkLoginStatus() {
+                try {
+                    const response = await fetch('/user/status', {
+                        method: 'GET',
+                        credentials: 'include', // Include cookies
+                    });
+                    const data = await response.json();
+        
+                    if (response.ok && data.loggedIn) {
+                        document.getElementById('signup-btn').style.display = 'none';
+                        document.getElementById('login-btn').style.display = 'none';
+                        document.getElementById('logout-btn').style.display = 'inline-block';
+                    } else {
+                        document.getElementById('signup-btn').style.display = 'inline-block';
+                        document.getElementById('login-btn').style.display = 'inline-block';
+                        document.getElementById('logout-btn').style.display = 'none';
+                    }
+                } catch (error) {
+                    console.error('Error checking login status:', error);
+                }
+            }
+        
+            async function logout() {
+                try {
+                    const response = await fetch('/logout', {
+                        method: 'POST',
+                        credentials: 'include', // Include cookies
+                    });
+                    if (response.ok) {
+                        alert('Logged out successfully');
+                        checkLoginStatus();
+                    }
+                } catch (error) {
+                    console.error('Error logging out:', error);
+                }
+            }
+        
+            // Check login status on page load
+            checkLoginStatus();
+        </script>
+        
+    </main>
+
+    <footer class="bg-gray-900 text-white py-4 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy Copyright is just another form of government overreach that stifles creativity and individual freedom.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

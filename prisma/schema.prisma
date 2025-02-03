@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+
+
+  publicKey String   @unique
+  privateKey String  @unique
+
+    privateKeySalt    String   // Add this line
+    privateKeyIV      String   // Add this line
+    privateKeyAuthTag String   // Add this line
+
+
+
+  Product Product[]
+
+  Transaction Transaction[]
+}
+model Product {
+  id          Int      @id @default(autoincrement())
+  sellerId    Int
+  seller      User     @relation(fields: [sellerId], references: [id])
+  name        String
+  description String
+  price       Decimal
+  imagePath   String
+  createdAt   DateTime @default(now())
+
+  escrowId    Int?     // Add this field to link to Escrow
+  escrow      Escrow?  @relation(fields: [escrowId], references: [id])
+
+  transaction Transaction?
+}
+
+
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  buyerId     Int   
+  buyer       User     @relation(fields: [buyerId], references: [id])  
+  productId   Int      @unique
+  product     Product  @relation(fields: [productId], references: [id])
+  escrowAddress  String
+  releaseConfirmed Boolean @default(false)
+  status      String
+  createdAt   DateTime @default(now())
+}
+
+
+
+model Escrow {
+  id          Int     @id @default(autoincrement())
+  buyerId     Int
+  sellerId    Int
+  productId   Int
+
+
+  amount      Decimal
+  status      String @default("pending") // pending, shipped, released, disputed
+  createdAt   DateTime @default(now())
+
+  Product Product[]
+}

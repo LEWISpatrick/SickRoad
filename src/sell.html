@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SickRoad - Sell an Item</title>
+    <!-- HTMX for dynamic content loading -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">SickRoad</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="/road" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="/sell" class="hover:text-gray-300">Sell</a></li>
+                    <li><a href="/account" class="hover:text-gray-300">Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto mt-8 p-4">
+        <h2 class="text-3xl font-bold mb-4">Sell an Item</h2>
+        
+                <!-- sell.html -->
+            <form hx-post="/sell" hx-encoding="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
+                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
+                    <textarea id="description" name="description" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" rows="4"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="price" class="block text-orange-400 font-bold mb-2">(BTC)&#x20bf;</label>
+                    <input type="number" id="price" name="price" step="0.00000001" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-orange-300">
+
+                </div>
+                <div class="mb-4">
+                    <label for="image" class="block text-gray-700 font-bold mb-2">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                        List Item
+                    </button>
+                </div>
+            </form>
+
+        
+        <!-- Response message -->
+        <div id="response" class="mt-4 text-center" hx-target="#response" hx-swap="innerHTML">
+            <!-- Will show success or error message -->
+        </div>
+            </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2023 SickRoad. For educational purposes only.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

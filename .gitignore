@@ -1,0 +1,16 @@
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+
+# Database files
+*.sqlite
+
+uploads/
