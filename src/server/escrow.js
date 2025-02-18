@@ -105,3 +105,9 @@ async function sendBTCFromEscrow(user, escrow, platformPublicKey, privateKeyWIF)
 }
 
 module.exports = { generateEscrowAddress, sendBTCFromEscrow };
+
+
+
+
+
+// adding monero to this
