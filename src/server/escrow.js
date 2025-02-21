@@ -105,3 +105,8 @@ async function sendBTCFromEscrow(user, escrow, platformPublicKey, privateKeyWIF)
 }
 
 module.exports = { generateEscrowAddress, sendBTCFromEscrow };
+
+
+
+
+// adding Epic cash lessss gooo
